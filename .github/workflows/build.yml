@@ -25,14 +25,14 @@ jobs:
       run: |
         set -ex
 
-        DOWNLOADURL=https://github.com/redis/redis/archive/6.2.5/redis-6.2.5.tar.gz
+        DOWNLOADURL=https://github.com/redis/redis/archive/7.2.5/redis-7.2.5.tar.gz
         curl -L ${DOWNLOADURL} | tar xz --strip-components=1
 
         set +ex
 
     - name: make
       run: |
-        make CFLAGS="-static" LDFLAGS="-static"
+        make CFLAGS="-static" LDFLAGS="-static" BUILD_TLS=yes
 
     - name: make test
       run: |
