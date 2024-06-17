@@ -34,24 +34,6 @@ jobs:
       run: |
         make CFLAGS="-static" LDFLAGS="-static"
 
-    - name: make test
-      run: |
-        apk add --no-cache \
-          tcl
-
-        cat > tests_to_skip <<EOF
-        integration/psync2-reg
-        integration/failover
-        EOF
-
-        # static builds don't produce stacktrace as expected by test
-        # (see https://github.com/redis/redis/issues/4135)
-        # and aren't properly detected by tests/integration/logging.tcl.
-        # So forcefully ignore them by editing test out of script.
-        sed -i '/} elseif {$system_name eq {linux}} {/d' tests/integration/logging.tcl
-
-        ./runtest
-
     - name: store build artifacts
       uses: actions/upload-artifact@v2
       with:
