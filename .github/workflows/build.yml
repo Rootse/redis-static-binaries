@@ -19,7 +19,7 @@ jobs:
           gcc \
           make \
           musl-dev \
-          openssl-dev
+          libressl-dev
 
     - name: fetch source
       run: |
@@ -32,7 +32,7 @@ jobs:
 
     - name: make
       run: |
-        make CFLAGS="-static" LDFLAGS="-static"
+        make CFLAGS="-static" LDFLAGS="-static" BUILD_TLS=yes
 
     - name: store build artifacts
       uses: actions/upload-artifact@v2
